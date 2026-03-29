@@ -231,6 +231,16 @@
   };
 
   let activeScreen = getInitialScreen();
+  const sidebarState = {
+    primary: true,
+    assistantList: true,
+    configRail: true,
+  };
+  const sidebarControlMeta = {
+    primary: { label: "Toggle main sidebar", iconName: "dashboard" },
+    assistantList: { label: "Toggle assistant list", iconName: "assistants" },
+    configRail: { label: "Toggle config rail", iconName: "model" },
+  };
 
   function getInitialScreen() {
     const hash = window.location.hash.replace("#", "");
@@ -260,10 +270,34 @@
     return `<span class="brand-wordmark${compact ? " compact" : ""}">Ovixe</span>`;
   }
 
-  function dashboardTopBar() {
+  function sidebarToggleButton(key) {
+    const meta = sidebarControlMeta[key] || { label: "Toggle sidebar", iconName: "settings" };
+    const isOpen = Boolean(sidebarState[key]);
+    return `
+      <button
+        type="button"
+        class="ui-btn ui-btn--sidebarToggle js-toggle-sidebar${isOpen ? " active" : ""}"
+        data-sidebar="${key}"
+        aria-label="${meta.label}"
+        aria-pressed="${isOpen ? "true" : "false"}"
+        title="${meta.label}"
+      >
+        ${icon(meta.iconName, "small")}
+      </button>
+    `;
+  }
+
+  function dashboardTopBar(sidebarControls = []) {
     return `
       <header class="dashboard-topbar">
-        ${brandWordmark(false)}
+        <div class="topbar-left">
+          ${brandWordmark(false)}
+          ${
+            sidebarControls.length
+              ? `<div class="topbar-sidebar-controls">${sidebarControls.map((key) => sidebarToggleButton(key)).join("")}</div>`
+              : ""
+          }
+        </div>
 
         <div class="topbar-search" aria-label="Ask Ovixe anything">
           ${icon("mic", "large")}
@@ -573,7 +607,7 @@
   function dashboardPage() {
     return `
       <div class="dark-page">
-        ${dashboardTopBar()}
+        ${dashboardTopBar(["primary"])}
 
         <div class="dark-layout">
           ${primarySidebar("dashboard")}
@@ -613,7 +647,7 @@
 
     return `
       <div class="dark-page">
-        ${dashboardTopBar()}
+        ${dashboardTopBar(["primary", "assistantList", "configRail"])}
 
         <div class="assistant-layout">
           ${primarySidebar("assistants", true)}
@@ -690,7 +724,7 @@
   function phoneNumbersPage() {
     return `
       <div class="dark-page">
-        ${dashboardTopBar()}
+        ${dashboardTopBar(["primary"])}
 
         <div class="dark-layout">
           ${primarySidebar("phone")}
@@ -776,6 +810,31 @@
     }
   }
 
+  function applySidebarState() {
+    const darkLayout = app.querySelector(".dark-layout");
+    if (darkLayout) {
+      darkLayout.classList.toggle("sidebar-collapsed", !sidebarState.primary);
+    }
+
+    const assistantLayout = app.querySelector(".assistant-layout");
+    if (assistantLayout) {
+      assistantLayout.classList.toggle("sidebar-primary-collapsed", !sidebarState.primary);
+      assistantLayout.classList.toggle("sidebar-list-collapsed", !sidebarState.assistantList);
+      assistantLayout.classList.toggle("sidebar-rail-collapsed", !sidebarState.configRail);
+    }
+
+    const sidebarButtons = app.querySelectorAll(".js-toggle-sidebar");
+    sidebarButtons.forEach((button) => {
+      const key = button.getAttribute("data-sidebar");
+      if (!key || !Object.prototype.hasOwnProperty.call(sidebarState, key)) {
+        return;
+      }
+      const isOpen = Boolean(sidebarState[key]);
+      button.classList.toggle("active", isOpen);
+      button.setAttribute("aria-pressed", isOpen ? "true" : "false");
+    });
+  }
+
   function bindEvents() {
     const switchButtons = app.querySelectorAll(".js-switch-screen");
     switchButtons.forEach((button) => {
@@ -800,11 +859,24 @@
         toggle.setAttribute("aria-pressed", on ? "true" : "false");
       });
     });
+
+    const sidebarButtons = app.querySelectorAll(".js-toggle-sidebar");
+    sidebarButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const key = button.getAttribute("data-sidebar");
+        if (!key || !Object.prototype.hasOwnProperty.call(sidebarState, key)) {
+          return;
+        }
+        sidebarState[key] = !sidebarState[key];
+        applySidebarState();
+      });
+    });
   }
 
   function render() {
     app.innerHTML = `${renderScreen()}${screenSwitcher()}`;
     bindEvents();
+    applySidebarState();
   }
 
   window.addEventListener("hashchange", () => {
