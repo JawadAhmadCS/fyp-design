@@ -809,7 +809,13 @@ a {
   margin-bottom: 24px;
 }
 
-.assistant-header > div:first-child {
+.assistant-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.assistant-identity > div {
   display: flex;
   flex-direction: column;
   gap: 4px;

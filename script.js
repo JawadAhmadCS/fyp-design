@@ -688,7 +688,7 @@
 
     return `
       <div class="dark-page">
-        ${dashboardTopBar(["primary", "assistantList"])}
+        ${dashboardTopBar(["primary"])}
 
         <div class="assistant-layout">
           ${primarySidebar("assistants", true)}
@@ -696,9 +696,12 @@
 
           <main class="assistant-main">
             <section class="assistant-header">
-              <div>
-                <strong>Ovixe</strong>
-                <span>e845f7b3-80ca-4db5-bb6c-ba</span>
+              <div class="assistant-identity">
+                ${sidebarToggleButton("assistantList")}
+                <div>
+                  <strong>Ovixe</strong>
+                  <span>e845f7b3-80ca-4db5-bb6c-ba</span>
+                </div>
               </div>
               <div class="assistant-pills">
                 ${uiButton({ variant: "assistantChip", label: "Integration", startIcon: icon("integration", "small") })}
