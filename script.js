@@ -46,6 +46,18 @@
     },
   };
 
+  // Replace these URLs with exported Figma image assets for pixel-perfect parity.
+  const imageMap = {
+    profile: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=220",
+    heroMain: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=900",
+    heroCard: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=500",
+    heroAvatarOne: "https://images.pexels.com/photos/3771118/pexels-photo-3771118.jpeg?auto=compress&cs=tinysrgb&w=300",
+    heroAvatarTwo: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=300",
+    socialA: "https://randomuser.me/api/portraits/women/68.jpg",
+    socialB: "https://randomuser.me/api/portraits/men/34.jpg",
+    socialC: "https://randomuser.me/api/portraits/women/29.jpg",
+  };
+
   const iconMap = {
     mic: `
       <svg viewBox="0 0 24 24">
@@ -251,7 +263,9 @@
           ${uiButton({ variant: "iconBubble", attrs: 'aria-label="Notifications"', label: icon("bell", "medium") })}
           ${uiButton({ variant: "iconBubble", attrs: 'aria-label="Settings"', label: icon("settings", "medium") })}
           <div class="profile-pill" role="button" tabindex="0">
-            <span class="avatar-circle">NR</span>
+            <span class="avatar-circle">
+              <img src="${imageMap.profile}" alt="Naya Rachel" loading="lazy" />
+            </span>
             <div>
               <p>Naya Rachel</p>
               <span>rachel@gmail.com</span>
@@ -487,9 +501,9 @@
               <strong>4.8/5</strong>
               ${icon("star")}
               <div class="mini-avatars" aria-hidden="true">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span><img src="${imageMap.socialA}" alt="" loading="lazy" /></span>
+                <span><img src="${imageMap.socialB}" alt="" loading="lazy" /></span>
+                <span><img src="${imageMap.socialC}" alt="" loading="lazy" /></span>
               </div>
               <div>
                 <b>100 K+</b>
@@ -499,13 +513,20 @@
           </div>
 
           <div class="hero-visual">
-            <div class="orb"></div>
+            <div class="orb">
+              <img class="hero-main-shot" src="${imageMap.heroMain}" alt="AI assistant visual" loading="lazy" />
+            </div>
             <div class="floating-card">
+              <img class="floating-card-avatar" src="${imageMap.heroCard}" alt="AI assistant usage" loading="lazy" />
               <h3>How It Works</h3>
               <p>Lorem ipsum dolor sit amet consectetur. Eu tortor eget sed amet tortor enim.</p>
             </div>
-            <div class="avatar-block one"></div>
-            <div class="avatar-block two"></div>
+            <div class="avatar-block one">
+              <img src="${imageMap.heroAvatarOne}" alt="User profile" loading="lazy" />
+            </div>
+            <div class="avatar-block two">
+              <img src="${imageMap.heroAvatarTwo}" alt="User profile" loading="lazy" />
+            </div>
           </div>
         </section>
       </div>

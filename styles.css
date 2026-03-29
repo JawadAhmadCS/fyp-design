@@ -328,6 +328,13 @@ a {
   font-weight: 600;
   color: #fff;
   background: radial-gradient(circle at 20% 20%, #ec4899, #7c3aed 65%, #2b1453);
+  overflow: hidden;
+}
+
+.avatar-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .profile-pill p {
@@ -1189,7 +1196,14 @@ a {
   border-radius: 999px;
   border: 1px solid #efeff1;
   margin-left: -12px;
-  background: radial-gradient(circle at 30% 30%, #fdf2f8, #9482fb 70%);
+  overflow: hidden;
+  background: #edeff5;
+}
+
+.mini-avatars span img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero-visual {
@@ -1208,6 +1222,16 @@ a {
     radial-gradient(circle at 30% 35%, rgba(255, 255, 255, 0.45), transparent 38%),
     conic-gradient(from 45deg, #4c37c4, #9482fb, #ec4899, #4c37c4);
   filter: saturate(1.2) contrast(1.05);
+  overflow: hidden;
+  border: 1px solid #efeff1;
+}
+
+.hero-main-shot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: screen;
+  opacity: 0.82;
 }
 
 .floating-card {
@@ -1218,6 +1242,14 @@ a {
   background: #fff;
   border: 1px solid #efeff1;
   padding: 15px 25px;
+}
+
+.floating-card-avatar {
+  width: 100%;
+  height: 128px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
 }
 
 .floating-card h3 {
@@ -1241,6 +1273,13 @@ a {
   border-radius: 18px;
   border: 1px solid #efeff1;
   background: linear-gradient(180deg, #d6c2f9, #4c37c4);
+  overflow: hidden;
+}
+
+.avatar-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .avatar-block.one {
@@ -1341,7 +1380,7 @@ a {
   height: 100%;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.8;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
