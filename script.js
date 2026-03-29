@@ -228,6 +228,18 @@
         <path d="M6 9l6 6 6-6"></path>
       </svg>
     `,
+    chevronsLeft: `
+      <svg viewBox="0 0 24 24">
+        <path d="M14 7l-5 5 5 5"></path>
+        <path d="M20 7l-5 5 5 5"></path>
+      </svg>
+    `,
+    chevronsRight: `
+      <svg viewBox="0 0 24 24">
+        <path d="M10 7l5 5-5 5"></path>
+        <path d="M4 7l5 5-5 5"></path>
+      </svg>
+    `,
   };
 
   let activeScreen = getInitialScreen();
@@ -271,16 +283,22 @@
   function sidebarToggleButton(key) {
     const meta = sidebarControlMeta[key] || { label: "Toggle sidebar", iconName: "settings" };
     const isOpen = Boolean(sidebarState[key]);
+    const isPrimary = key === "primary";
+    const iconName = isPrimary ? (isOpen ? "chevronsLeft" : "chevronsRight") : meta.iconName;
+    const label = isPrimary ? (isOpen ? "Collapse main sidebar" : "Expand main sidebar") : meta.label;
+
     return `
       <button
         type="button"
-        class="ui-btn ui-btn--sidebarToggle js-toggle-sidebar${isOpen ? " active" : ""}"
+        class="ui-btn ui-btn--sidebarToggle${isPrimary ? " sidebar-toggle-main" : ""} js-toggle-sidebar${
+          isOpen ? " active" : ""
+        }"
         data-sidebar="${key}"
-        aria-label="${meta.label}"
+        aria-label="${label}"
         aria-pressed="${isOpen ? "true" : "false"}"
-        title="${meta.label}"
+        title="${label}"
       >
-        ${icon(meta.iconName, "small")}
+        ${icon(iconName, "small")}
       </button>
     `;
   }
@@ -317,6 +335,10 @@
         </div>
       </header>
     `;
+  }
+
+  function floatingPrimaryToggle() {
+    return `<div class="sidebar-launcher">${sidebarToggleButton("primary")}</div>`;
   }
 
   function primarySidebar(active, compact = false) {
@@ -605,7 +627,8 @@
   function dashboardPage() {
     return `
       <div class="dark-page">
-        ${dashboardTopBar(["primary"])}
+        ${dashboardTopBar()}
+        ${floatingPrimaryToggle()}
 
         <div class="dark-layout">
           ${primarySidebar("dashboard")}
@@ -688,7 +711,8 @@
 
     return `
       <div class="dark-page">
-        ${dashboardTopBar(["primary"])}
+        ${dashboardTopBar()}
+        ${floatingPrimaryToggle()}
 
         <div class="assistant-layout">
           ${primarySidebar("assistants", true)}
@@ -756,7 +780,8 @@
   function phoneNumbersPage() {
     return `
       <div class="dark-page">
-        ${dashboardTopBar(["primary"])}
+        ${dashboardTopBar()}
+        ${floatingPrimaryToggle()}
 
         <div class="dark-layout">
           ${primarySidebar("phone")}

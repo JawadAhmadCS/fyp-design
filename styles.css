@@ -171,6 +171,22 @@ a {
   color: #fff;
 }
 
+.ui-btn--sidebarToggle.sidebar-toggle-main {
+  border-radius: 9px;
+  border-color: rgba(231, 232, 234, 0.42);
+  background: rgba(10, 16, 30, 0.78);
+}
+
+.ui-btn--sidebarToggle.sidebar-toggle-main.active {
+  border-color: rgba(231, 232, 234, 0.56);
+  background: rgba(10, 16, 30, 0.92);
+  color: #fff;
+}
+
+.ui-btn--sidebarToggle.sidebar-toggle-main .icon {
+  --icon-size: 16px;
+}
+
 .ui-btn--sidebarToggle:hover {
   transform: translateY(-1px);
 }
@@ -336,6 +352,17 @@ a {
   border: 0.6px solid rgba(231, 232, 234, 0.2);
   background: rgba(7, 12, 24, 0.5);
   backdrop-filter: blur(6px);
+}
+
+.sidebar-launcher {
+  position: fixed;
+  left: 14px;
+  top: 96px;
+  z-index: 1200;
+}
+
+.sidebar-launcher .ui-btn--sidebarToggle.sidebar-toggle-main {
+  box-shadow: 0 8px 18px rgba(4, 8, 18, 0.42);
 }
 
 .topbar-search {
@@ -1215,6 +1242,11 @@ a {
 }
 
 @media (max-width: 1024px) {
+  .sidebar-launcher {
+    top: 92px;
+    left: 12px;
+  }
+
   .dashboard-topbar {
     flex-wrap: wrap;
     height: auto;
@@ -1247,6 +1279,11 @@ a {
 }
 
 @media (max-width: 760px) {
+  .sidebar-launcher {
+    top: 80px;
+    left: 10px;
+  }
+
   .screen-switcher {
     left: 16px;
     right: 16px;
