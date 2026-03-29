@@ -353,7 +353,7 @@ a {
 
 .dark-layout {
   display: grid;
-  grid-template-columns: 333px minmax(0, 1fr);
+  grid-template-columns: minmax(260px, 333px) minmax(0, 1fr);
   min-height: calc(100vh - 112px);
 }
 
@@ -569,7 +569,7 @@ a {
 
 .assistant-layout {
   display: grid;
-  grid-template-columns: 118px 336px 104px minmax(0, 1fr);
+  grid-template-columns: 104px minmax(268px, 336px) 104px minmax(0, 1fr);
   min-height: calc(100vh - 112px);
 }
 
@@ -577,6 +577,7 @@ a {
   background: var(--blue-base);
   border-right: 0.5px solid #707070;
   padding: 33px 20px;
+  min-width: 0;
 }
 
 .assistant-list-actions {
@@ -651,6 +652,7 @@ a {
   flex-direction: column;
   align-items: center;
   gap: 14px;
+  min-width: 0;
 }
 
 .config-rail-item {
@@ -691,6 +693,7 @@ a {
 
 .assistant-main {
   padding: 18px 40px 72px 35px;
+  min-width: 0;
 }
 
 .assistant-header {
@@ -1061,7 +1064,21 @@ a {
   gap: 18px;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1400px) {
+  .dashboard-main {
+    padding: 40px 32px 64px 30px;
+  }
+
+  .assistant-main {
+    padding: 18px 24px 64px 22px;
+  }
+
+  .phone-main {
+    padding: 17px 24px 72px 24px;
+  }
+}
+
+@media (max-width: 1024px) {
   .dashboard-topbar {
     flex-wrap: wrap;
     height: auto;
