@@ -47,30 +47,164 @@
   };
 
   const iconMap = {
-    mic: "MIC",
-    bell: "BEL",
-    settings: "SET",
-    dashboard: "DB",
-    assistants: "AS",
-    phone: "PH",
-    plus: "+",
-    file: "UP",
-    search: "SR",
-    model: "ML",
-    voice: "VO",
-    transcriber: "TR",
-    calls: "CL",
-    duration: "TM",
-    cost: "$$",
-    trend: "UP",
-    alert: "!",
-    integration: "IN",
-    test: "TS",
-    chat: "CH",
-    assistantTalk: "TL",
-    sparkles: "AI",
-    star: "*",
-    caret: "v",
+    mic: `
+      <svg viewBox="0 0 24 24">
+        <rect x="9" y="3" width="6" height="11" rx="3"></rect>
+        <path d="M5 11v1a7 7 0 0 0 14 0v-1"></path>
+        <path d="M12 19v2"></path>
+      </svg>
+    `,
+    bell: `
+      <svg viewBox="0 0 24 24">
+        <path d="M15 18H5l1.4-1.4c.4-.4.6-.9.6-1.4V11a5 5 0 1 1 10 0v4.2c0 .5.2 1 .6 1.4L19 18h-4"></path>
+        <path d="M10 20a2 2 0 0 0 4 0"></path>
+      </svg>
+    `,
+    settings: `
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1 1 0 0 0 .2 1.1l.1.1a2 2 0 0 1-2.8 2.8l-.1-.1a1 1 0 0 0-1.1-.2 1 1 0 0 0-.6.9V20a2 2 0 1 1-4 0v-.2a1 1 0 0 0-.6-.9 1 1 0 0 0-1.1.2l-.1.1a2 2 0 0 1-2.8-2.8l.1-.1a1 1 0 0 0 .2-1.1 1 1 0 0 0-.9-.6H4a2 2 0 1 1 0-4h.2a1 1 0 0 0 .9-.6 1 1 0 0 0-.2-1.1L4.8 8.2a2 2 0 0 1 2.8-2.8l.1.1a1 1 0 0 0 1.1.2h.1a1 1 0 0 0 .6-.9V4a2 2 0 1 1 4 0v.2a1 1 0 0 0 .6.9h.1a1 1 0 0 0 1.1-.2l.1-.1a2 2 0 0 1 2.8 2.8l-.1.1a1 1 0 0 0-.2 1.1v.1a1 1 0 0 0 .9.6H20a2 2 0 1 1 0 4h-.2a1 1 0 0 0-.9.6z"></path>
+      </svg>
+    `,
+    dashboard: `
+      <svg viewBox="0 0 24 24">
+        <rect x="3" y="3" width="8" height="8" rx="1.5"></rect>
+        <rect x="13" y="3" width="8" height="5" rx="1.5"></rect>
+        <rect x="13" y="10" width="8" height="11" rx="1.5"></rect>
+        <rect x="3" y="13" width="8" height="8" rx="1.5"></rect>
+      </svg>
+    `,
+    assistants: `
+      <svg viewBox="0 0 24 24">
+        <circle cx="9" cy="8" r="3"></circle>
+        <path d="M3.5 18a5.5 5.5 0 0 1 11 0"></path>
+        <circle cx="17" cy="9" r="2"></circle>
+        <path d="M14.5 18a4.5 4.5 0 0 1 6 0"></path>
+      </svg>
+    `,
+    phone: `
+      <svg viewBox="0 0 24 24">
+        <path d="M6.2 3.8l2.1-.5a1.5 1.5 0 0 1 1.7.8l1.3 2.6a1.5 1.5 0 0 1-.3 1.8l-1.2 1.2a14.8 14.8 0 0 0 4.5 4.5l1.2-1.2a1.5 1.5 0 0 1 1.8-.3l2.6 1.3a1.5 1.5 0 0 1 .8 1.7l-.5 2.1a2 2 0 0 1-2 1.5A16.5 16.5 0 0 1 4.7 5.8a2 2 0 0 1 1.5-2z"></path>
+      </svg>
+    `,
+    plus: `
+      <svg viewBox="0 0 24 24">
+        <path d="M12 5v14"></path>
+        <path d="M5 12h14"></path>
+      </svg>
+    `,
+    file: `
+      <svg viewBox="0 0 24 24">
+        <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path>
+        <path d="M14 3v5h5"></path>
+        <path d="M12 17V10"></path>
+        <path d="M9.5 12.5L12 10l2.5 2.5"></path>
+      </svg>
+    `,
+    search: `
+      <svg viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="6"></circle>
+        <path d="M20 20l-4.2-4.2"></path>
+      </svg>
+    `,
+    model: `
+      <svg viewBox="0 0 24 24">
+        <rect x="6" y="6" width="12" height="12" rx="2"></rect>
+        <path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"></path>
+      </svg>
+    `,
+    voice: `
+      <svg viewBox="0 0 24 24">
+        <path d="M4 13v-2"></path>
+        <path d="M8 16V8"></path>
+        <path d="M12 19V5"></path>
+        <path d="M16 16V8"></path>
+        <path d="M20 13v-2"></path>
+      </svg>
+    `,
+    transcriber: `
+      <svg viewBox="0 0 24 24">
+        <path d="M4 6h16"></path>
+        <path d="M4 12h12"></path>
+        <path d="M4 18h8"></path>
+      </svg>
+    `,
+    calls: `
+      <svg viewBox="0 0 24 24">
+        <path d="M6.2 3.8l2.1-.5a1.5 1.5 0 0 1 1.7.8l1.3 2.6a1.5 1.5 0 0 1-.3 1.8l-1.2 1.2a14.8 14.8 0 0 0 4.5 4.5l1.2-1.2a1.5 1.5 0 0 1 1.8-.3l2.6 1.3a1.5 1.5 0 0 1 .8 1.7l-.5 2.1a2 2 0 0 1-2 1.5A16.5 16.5 0 0 1 4.7 5.8a2 2 0 0 1 1.5-2z"></path>
+        <path d="M14 5h5v5"></path>
+        <path d="M19 5l-6 6"></path>
+      </svg>
+    `,
+    duration: `
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8"></circle>
+        <path d="M12 8v5l3 2"></path>
+      </svg>
+    `,
+    cost: `
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3v18"></path>
+        <path d="M16.5 7.5c0-1.9-1.8-3.5-4.5-3.5s-4.5 1.6-4.5 3.5S9.3 11 12 11s4.5 1.6 4.5 3.5S14.7 18 12 18s-4.5-1.6-4.5-3.5"></path>
+      </svg>
+    `,
+    trend: `
+      <svg viewBox="0 0 24 24">
+        <path d="M4 15l5-5 4 4 7-7"></path>
+        <path d="M15 7h5v5"></path>
+      </svg>
+    `,
+    alert: `
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3l9 16H3z"></path>
+        <path d="M12 9v4"></path>
+        <path d="M12 17h.01"></path>
+      </svg>
+    `,
+    integration: `
+      <svg viewBox="0 0 24 24">
+        <path d="M8 3h3v3H8a2 2 0 0 0 0 4h3v3H8a5 5 0 0 1 0-10z"></path>
+        <path d="M16 11h-3V8h3a2 2 0 1 0 0-4h-3V1h3a5 5 0 1 1 0 10z"></path>
+        <path d="M8 21h3v-3H8a2 2 0 1 1 0-4h3v-3H8a5 5 0 1 0 0 10z"></path>
+        <path d="M16 13h-3v3h3a2 2 0 1 1 0 4h-3v3h3a5 5 0 0 0 0-10z"></path>
+      </svg>
+    `,
+    test: `
+      <svg viewBox="0 0 24 24">
+        <path d="M10 2h4"></path>
+        <path d="M10 2v4l-5.5 9.6A4 4 0 0 0 8 22h8a4 4 0 0 0 3.5-6.4L14 6V2"></path>
+        <path d="M8.5 14h7"></path>
+      </svg>
+    `,
+    chat: `
+      <svg viewBox="0 0 24 24">
+        <path d="M5 6h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"></path>
+      </svg>
+    `,
+    assistantTalk: `
+      <svg viewBox="0 0 24 24">
+        <rect x="4" y="6" width="16" height="12" rx="3"></rect>
+        <circle cx="9" cy="12" r="1"></circle>
+        <circle cx="15" cy="12" r="1"></circle>
+        <path d="M9 16h6"></path>
+      </svg>
+    `,
+    sparkles: `
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"></path>
+        <path d="M18.5 15l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"></path>
+      </svg>
+    `,
+    star: `
+      <svg class="icon-fill" viewBox="0 0 24 24">
+        <path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 21l1.1-6.5L2.6 9.8l6.5-.9z"></path>
+      </svg>
+    `,
+    caret: `
+      <svg viewBox="0 0 24 24">
+        <path d="M6 9l6 6 6-6"></path>
+      </svg>
+    `,
   };
 
   let activeScreen = getInitialScreen();
@@ -81,8 +215,8 @@
   }
 
   function icon(name, size = "medium") {
-    const content = iconMap[name] || "-";
-    return `<span class="icon ${size}" aria-hidden="true">${content}</span>`;
+    const svg = iconMap[name] || iconMap.alert;
+    return `<span class="icon ${size}" aria-hidden="true">${svg}</span>`;
   }
 
   function uiButton({
