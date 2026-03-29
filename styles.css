@@ -727,49 +727,49 @@ a {
 
 .radial-grid {
   display: grid;
-  grid-template-columns: repeat(2, 176px);
+  grid-template-columns: repeat(2, 318px);
   justify-content: start;
   gap: 16px;
   margin-bottom: 28px;
 }
 
 .radial-metric-card {
-  width: 176px;
-  height: 123px;
-  border-radius: 14px;
+  width: 318px;
+  height: 219px;
+  border-radius: 21px;
   background:
     radial-gradient(120% 120% at 8% -10%, rgba(27, 51, 95, 0.4), transparent 42%),
     radial-gradient(circle at 90% 100%, rgba(111, 124, 161, 0.48), transparent 30%),
     linear-gradient(152deg, #0d1730 0%, #0b1226 60%, #0f1934 100%);
   border: 1px solid rgba(35, 49, 82, 0.58);
   box-shadow: 0 8px 20px rgba(5, 9, 21, 0.36);
-  padding: 14px 16px 10px;
+  padding: 24px 27px 18px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  gap: 6px;
+  gap: 12px;
 }
 
 .radial-metric-card h3 {
   margin: 0;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 21px;
+  line-height: 25px;
   color: rgba(231, 232, 234, 0.9);
   font-weight: 400;
 }
 
 .radial-meter-wrap {
-  --tail-top-top: 28px;
-  --tail-top-right: 25px;
+  --tail-top-top: 54px;
+  --tail-top-right: 34px;
   --tail-top-x: 0px;
-  --tail-bottom-top: 47px;
-  --tail-bottom-right: 21px;
+  --tail-bottom-top: 88px;
+  --tail-bottom-right: 25px;
   --tail-bottom-x: 0px;
   position: relative;
-  width: 132px;
-  height: 80px;
-  margin: 4px auto 0;
+  width: 228px;
+  height: 138px;
+  margin: 9px auto 0;
 }
 
 .radial-meter {
@@ -782,7 +782,7 @@ a {
 
 .radial-meter-arc {
   fill: none;
-  stroke-width: 11;
+  stroke-width: 17;
   stroke-linecap: round;
 }
 
@@ -792,8 +792,8 @@ a {
 
 .radial-meter-tail {
   position: absolute;
-  width: 9px;
-  height: 17px;
+  width: 22px;
+  height: 33px;
   border-radius: 999px;
   background: #d8ccfb;
   box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.2);
@@ -814,14 +814,14 @@ a {
 .radial-value {
   position: absolute;
   left: 50%;
-  bottom: 8px;
+  bottom: 12px;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
   width: 100%;
-  max-width: 74px;
+  max-width: 111px;
   padding-top: 0;
 }
 
@@ -830,9 +830,9 @@ a {
   background: #7432dc;
   color: rgba(255, 255, 255, 0.84);
   font-family: "Hanken Grotesk", sans-serif;
-  font-size: 5px;
+  font-size: 7px;
   line-height: 1;
-  padding: 2px 7px;
+  padding: 3px 11px;
   text-transform: uppercase;
   letter-spacing: 0.32px;
 }
@@ -841,8 +841,8 @@ a {
   margin-top: 0;
   color: rgba(255, 255, 255, 0.86);
   font-family: "Urbanist", sans-serif;
-  font-size: 18px;
-  line-height: 20px;
+  font-size: 27px;
+  line-height: 30px;
   font-weight: 400;
 }
 
@@ -1105,7 +1105,7 @@ a {
   }
 
   .radial-grid {
-    grid-template-columns: repeat(auto-fit, minmax(176px, 176px));
+    grid-template-columns: repeat(auto-fit, minmax(318px, 318px));
     justify-content: start;
   }
 }
