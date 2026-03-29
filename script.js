@@ -234,12 +234,10 @@
   const sidebarState = {
     primary: true,
     assistantList: true,
-    configRail: true,
   };
   const sidebarControlMeta = {
     primary: { label: "Toggle main sidebar", iconName: "dashboard" },
     assistantList: { label: "Toggle assistant list", iconName: "assistants" },
-    configRail: { label: "Toggle config rail", iconName: "model" },
   };
 
   function getInitialScreen() {
@@ -642,17 +640,59 @@
     `;
   }
 
-  function assistantConfigPage(mode) {
-    const copy = modeCopy[mode];
+  function assistantConfigPanel(modeKey) {
+    const copy = modeCopy[modeKey];
+    return `
+      <section id="config-${modeKey}" class="config-panel assistant-config-section">
+        <header>
+          <div>
+            <h2>${copy.title}</h2>
+            <p>${copy.description}</p>
+          </div>
+        </header>
+
+        <div class="config-fields two-col">
+          ${selectField({ label: copy.leftLabel, value: copy.leftValue })}
+          ${selectField({ label: copy.rightLabel, value: copy.rightValue })}
+        </div>
+
+        ${
+          copy.fullLabel && copy.fullValue
+            ? `<div class="config-fields single-col">${selectField({ label: copy.fullLabel, value: copy.fullValue, wide: true })}</div>`
+            : ""
+        }
+
+        ${
+          copy.systemTitle && copy.systemValue
+            ? `
+              <div class="config-fields single-col">
+                <div class="system-heading">
+                  <h3>${copy.systemTitle}</h3>
+                  ${uiButton({ variant: "optimize", label: "Optimize", startIcon: icon("sparkles", "small") })}
+                </div>
+                ${textField({ label: "", value: copy.systemValue, multiline: true })}
+              </div>
+            `
+            : ""
+        }
+      </section>
+    `;
+  }
+
+  function assistantConfigPage(mode = "model") {
+    const sections = [
+      { key: "model", label: "Model" },
+      { key: "voice", label: "Voice" },
+      { key: "transcriber", label: "Transcriber" },
+    ];
 
     return `
       <div class="dark-page">
-        ${dashboardTopBar(["primary", "assistantList", "configRail"])}
+        ${dashboardTopBar(["primary", "assistantList"])}
 
         <div class="assistant-layout">
           ${primarySidebar("assistants", true)}
           ${assistantListSidebar()}
-          ${configRail(mode)}
 
           <main class="assistant-main">
             <section class="assistant-header">
@@ -682,39 +722,28 @@
               })}
             </section>
 
-            <section class="config-panel">
-              <header>
-                <div>
-                  <h2>${copy.title}</h2>
-                  <p>${copy.description}</p>
-                </div>
-              </header>
+            <nav class="config-inline-nav" aria-label="Config sections">
+              ${sections
+                .map((section) => {
+                  const activeClass = section.key === mode ? " active" : "";
+                  return `
+                    <button
+                      type="button"
+                      class="ui-btn ui-btn--assistantChip config-inline-nav-btn js-scroll-config${activeClass}"
+                      data-config-target="config-${section.key}"
+                    >
+                      ${section.label}
+                    </button>
+                  `;
+                })
+                .join("")}
+            </nav>
 
-              <div class="config-fields two-col">
-                ${selectField({ label: copy.leftLabel, value: copy.leftValue })}
-                ${selectField({ label: copy.rightLabel, value: copy.rightValue })}
-              </div>
-
-              ${
-                copy.fullLabel && copy.fullValue
-                  ? `<div class="config-fields single-col">${selectField({ label: copy.fullLabel, value: copy.fullValue, wide: true })}</div>`
-                  : ""
-              }
-
-              ${
-                copy.systemTitle && copy.systemValue
-                  ? `
-                    <div class="config-fields single-col">
-                      <div class="system-heading">
-                        <h3>${copy.systemTitle}</h3>
-                        ${uiButton({ variant: "optimize", label: "Optimize", startIcon: icon("sparkles", "small") })}
-                      </div>
-                      ${textField({ label: "", value: copy.systemValue, multiline: true })}
-                    </div>
-                  `
-                  : ""
-              }
-            </section>
+            <div class="assistant-config-stack">
+              ${assistantConfigPanel("model")}
+              ${assistantConfigPanel("voice")}
+              ${assistantConfigPanel("transcriber")}
+            </div>
           </main>
         </div>
       </div>
@@ -820,7 +849,6 @@
     if (assistantLayout) {
       assistantLayout.classList.toggle("sidebar-primary-collapsed", !sidebarState.primary);
       assistantLayout.classList.toggle("sidebar-list-collapsed", !sidebarState.assistantList);
-      assistantLayout.classList.toggle("sidebar-rail-collapsed", !sidebarState.configRail);
     }
 
     const sidebarButtons = app.querySelectorAll(".js-toggle-sidebar");
@@ -833,6 +861,28 @@
       button.classList.toggle("active", isOpen);
       button.setAttribute("aria-pressed", isOpen ? "true" : "false");
     });
+  }
+
+  function syncConfigSectionFromScreen() {
+    if (!["model", "voice", "transcriber"].includes(activeScreen)) {
+      return;
+    }
+
+    const targetId = `config-${activeScreen}`;
+    const configButtons = app.querySelectorAll(".js-scroll-config");
+    configButtons.forEach((button) => {
+      const isActive = button.getAttribute("data-config-target") === targetId;
+      button.classList.toggle("active", isActive);
+    });
+
+    if (activeScreen === "model") {
+      return;
+    }
+
+    const target = app.querySelector(`#${targetId}`);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
 
   function bindEvents() {
@@ -871,12 +921,33 @@
         applySidebarState();
       });
     });
+
+    const configButtons = app.querySelectorAll(".js-scroll-config");
+    configButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const targetId = button.getAttribute("data-config-target");
+        if (!targetId) {
+          return;
+        }
+
+        const target = app.querySelector(`#${targetId}`);
+        if (!target) {
+          return;
+        }
+
+        configButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
   }
 
   function render() {
     app.innerHTML = `${renderScreen()}${screenSwitcher()}`;
     bindEvents();
     applySidebarState();
+    syncConfigSectionFromScreen();
   }
 
   window.addEventListener("hashchange", () => {

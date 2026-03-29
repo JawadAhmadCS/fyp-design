@@ -645,9 +645,8 @@ a {
 .assistant-layout {
   --assistant-primary-width: 104px;
   --assistant-list-width: minmax(268px, 336px);
-  --assistant-rail-width: 104px;
   display: grid;
-  grid-template-columns: var(--assistant-primary-width) var(--assistant-list-width) var(--assistant-rail-width) minmax(0, 1fr);
+  grid-template-columns: var(--assistant-primary-width) var(--assistant-list-width) minmax(0, 1fr);
   min-height: calc(100vh - 112px);
   transition: grid-template-columns 220ms ease;
 }
@@ -660,13 +659,8 @@ a {
   --assistant-list-width: 0px;
 }
 
-.assistant-layout.sidebar-rail-collapsed {
-  --assistant-rail-width: 0px;
-}
-
 .assistant-layout .primary-sidebar.compact,
-.assistant-layout .assistant-list-sidebar,
-.assistant-layout .config-rail {
+.assistant-layout .assistant-list-sidebar {
   overflow: hidden;
   transition: padding 220ms ease, border-color 220ms ease, opacity 220ms ease;
 }
@@ -676,8 +670,7 @@ a {
 }
 
 .assistant-layout.sidebar-primary-collapsed .primary-sidebar.compact,
-.assistant-layout.sidebar-list-collapsed .assistant-list-sidebar,
-.assistant-layout.sidebar-rail-collapsed .config-rail {
+.assistant-layout.sidebar-list-collapsed .assistant-list-sidebar {
   padding: 0;
   border-right-color: transparent;
   opacity: 0;
@@ -834,6 +827,31 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 11px;
+}
+
+.config-inline-nav {
+  margin-bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.config-inline-nav-btn {
+  min-width: 106px;
+}
+
+.config-inline-nav-btn.active {
+  border-color: rgba(176, 147, 255, 0.85);
+  background: rgba(51, 27, 89, 0.82);
+}
+
+.assistant-config-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.assistant-config-section {
+  scroll-margin-top: 132px;
 }
 
 .radial-grid {
