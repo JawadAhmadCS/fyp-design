@@ -228,29 +228,15 @@
         <path d="M6 9l6 6 6-6"></path>
       </svg>
     `,
-    chevronsLeft: `
+    chevronRight: `
       <svg viewBox="0 0 24 24">
-        <path d="M14 7l-5 5 5 5"></path>
-        <path d="M20 7l-5 5 5 5"></path>
-      </svg>
-    `,
-    chevronsRight: `
-      <svg viewBox="0 0 24 24">
-        <path d="M10 7l5 5-5 5"></path>
-        <path d="M4 7l5 5-5 5"></path>
+        <path d="M9 6l6 6-6 6"></path>
       </svg>
     `,
   };
 
   let activeScreen = getInitialScreen();
-  const sidebarState = {
-    primary: true,
-    assistantList: true,
-  };
-  const sidebarControlMeta = {
-    primary: { label: "Toggle main sidebar", iconName: "dashboard" },
-    assistantList: { label: "Toggle assistant list", iconName: "assistants" },
-  };
+  let isSidebarOpen = false;
 
   function getInitialScreen() {
     const hash = window.location.hash.replace("#", "");
@@ -280,39 +266,11 @@
     return `<span class="brand-wordmark${compact ? " compact" : ""}">Ovixe</span>`;
   }
 
-  function sidebarToggleButton(key) {
-    const meta = sidebarControlMeta[key] || { label: "Toggle sidebar", iconName: "settings" };
-    const isOpen = Boolean(sidebarState[key]);
-    const isPrimary = key === "primary";
-    const iconName = isPrimary ? (isOpen ? "chevronsLeft" : "chevronsRight") : meta.iconName;
-    const label = isPrimary ? (isOpen ? "Collapse main sidebar" : "Expand main sidebar") : meta.label;
-
-    return `
-      <button
-        type="button"
-        class="ui-btn ui-btn--sidebarToggle${isPrimary ? " sidebar-toggle-main" : ""} js-toggle-sidebar${
-          isOpen ? " active" : ""
-        }"
-        data-sidebar="${key}"
-        aria-label="${label}"
-        aria-pressed="${isOpen ? "true" : "false"}"
-        title="${label}"
-      >
-        ${icon(iconName, "small")}
-      </button>
-    `;
-  }
-
-  function dashboardTopBar(sidebarControls = []) {
+  function dashboardTopBar() {
     return `
       <header class="dashboard-topbar">
         <div class="topbar-left">
           ${brandWordmark(false)}
-          ${
-            sidebarControls.length
-              ? `<div class="topbar-sidebar-controls">${sidebarControls.map((key) => sidebarToggleButton(key)).join("")}</div>`
-              : ""
-          }
         </div>
 
         <div class="topbar-search" aria-label="Ask Ovixe anything">
@@ -337,11 +295,7 @@
     `;
   }
 
-  function floatingPrimaryToggle() {
-    return `<div class="sidebar-launcher">${sidebarToggleButton("primary")}</div>`;
-  }
-
-  function primarySidebar(active, compact = false) {
+  function primarySidebar(active) {
     const items = [
       { key: "dashboard", label: "Dashboard", iconName: "dashboard", target: "dashboard" },
       { key: "assistants", label: "Assistants", iconName: "assistants", target: "model" },
@@ -358,21 +312,25 @@
             data-screen="${item.target}"
             aria-current="${isActive ? "page" : "false"}"
           >
-            ${icon(item.iconName)}
-            ${compact ? "" : `<span>${item.label}</span>`}
+            <span class="sidebar-item-icon">${icon(item.iconName)}</span>
+            <span class="sidebar-item-label">${item.label}</span>
           </button>
         `;
       })
       .join("");
 
     return `
-      <aside class="primary-sidebar${compact ? " compact" : ""}">
-        ${
-          compact
-            ? ""
-            : `<div class="sidebar-welcome"><h1>Welcome, Naya</h1><p>Here&apos;s your Agent overview</p></div>`
-        }
-
+      <aside class="primary-sidebar${isSidebarOpen ? " open" : ""}">
+        <div class="sidebar-toggle-row">
+          <button
+            type="button"
+            class="ui-btn sidebar-toggle js-toggle-sidebar"
+            aria-expanded="${isSidebarOpen ? "true" : "false"}"
+            aria-label="${isSidebarOpen ? "Collapse sidebar" : "Expand sidebar"}"
+          >
+            ${icon("chevronRight", "small")}
+          </button>
+        </div>
         <nav class="sidebar-nav" aria-label="Primary">
           ${navItems}
         </nav>
@@ -626,9 +584,8 @@
     return `
       <div class="dark-page">
         ${dashboardTopBar()}
-        ${floatingPrimaryToggle()}
 
-        <div class="dark-layout">
+        <div class="dark-layout${isSidebarOpen ? " sidebar-open" : ""}">
           ${primarySidebar("dashboard")}
 
           <main class="dashboard-main">
@@ -710,16 +667,14 @@
     return `
       <div class="dark-page">
         ${dashboardTopBar()}
-        ${floatingPrimaryToggle()}
 
-        <div class="assistant-layout">
+        <div class="assistant-layout${isSidebarOpen ? " sidebar-open" : ""}">
           ${primarySidebar("assistants")}
           ${assistantListSidebar()}
 
           <main class="assistant-main">
             <section class="assistant-header">
               <div class="assistant-identity">
-                ${sidebarToggleButton("assistantList")}
                 <div>
                   <strong>Ovixe</strong>
                   <span>e845f7b3-80ca-4db5-bb6c-ba</span>
@@ -779,9 +734,8 @@
     return `
       <div class="dark-page">
         ${dashboardTopBar()}
-        ${floatingPrimaryToggle()}
 
-        <div class="dark-layout">
+        <div class="dark-layout${isSidebarOpen ? " sidebar-open" : ""}">
           ${primarySidebar("phone")}
 
           <main class="phone-main">
@@ -865,30 +819,6 @@
     }
   }
 
-  function applySidebarState() {
-    const darkLayout = app.querySelector(".dark-layout");
-    if (darkLayout) {
-      darkLayout.classList.toggle("sidebar-collapsed", !sidebarState.primary);
-    }
-
-    const assistantLayout = app.querySelector(".assistant-layout");
-    if (assistantLayout) {
-      assistantLayout.classList.toggle("sidebar-primary-collapsed", !sidebarState.primary);
-      assistantLayout.classList.toggle("sidebar-list-collapsed", !sidebarState.assistantList);
-    }
-
-    const sidebarButtons = app.querySelectorAll(".js-toggle-sidebar");
-    sidebarButtons.forEach((button) => {
-      const key = button.getAttribute("data-sidebar");
-      if (!key || !Object.prototype.hasOwnProperty.call(sidebarState, key)) {
-        return;
-      }
-      const isOpen = Boolean(sidebarState[key]);
-      button.classList.toggle("active", isOpen);
-      button.setAttribute("aria-pressed", isOpen ? "true" : "false");
-    });
-  }
-
   function syncConfigSectionFromScreen() {
     if (!["model", "voice", "transcriber"].includes(activeScreen)) {
       return;
@@ -912,6 +842,14 @@
   }
 
   function bindEvents() {
+    const sidebarToggles = app.querySelectorAll(".js-toggle-sidebar");
+    sidebarToggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        isSidebarOpen = !isSidebarOpen;
+        render();
+      });
+    });
+
     const switchButtons = app.querySelectorAll(".js-switch-screen");
     switchButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -933,18 +871,6 @@
       toggle.addEventListener("click", () => {
         const on = toggle.classList.toggle("on");
         toggle.setAttribute("aria-pressed", on ? "true" : "false");
-      });
-    });
-
-    const sidebarButtons = app.querySelectorAll(".js-toggle-sidebar");
-    sidebarButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const key = button.getAttribute("data-sidebar");
-        if (!key || !Object.prototype.hasOwnProperty.call(sidebarState, key)) {
-          return;
-        }
-        sidebarState[key] = !sidebarState[key];
-        applySidebarState();
       });
     });
 
@@ -972,7 +898,6 @@
   function render() {
     app.innerHTML = `${renderScreen()}${screenSwitcher()}`;
     bindEvents();
-    applySidebarState();
     syncConfigSectionFromScreen();
   }
 
