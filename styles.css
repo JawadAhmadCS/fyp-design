@@ -569,7 +569,7 @@ a {
 
 .assistant-layout {
   display: grid;
-  grid-template-columns: 118px 336px 144px minmax(0, 1fr);
+  grid-template-columns: 118px 336px 104px minmax(0, 1fr);
   min-height: calc(100vh - 112px);
 }
 
@@ -644,36 +644,45 @@ a {
 }
 
 .config-rail {
-  background: var(--blue-base);
+  background: #081126;
   border-right: 0.5px solid #707070;
-  padding: 73px 11px;
+  padding: 73px 6px;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  align-items: center;
+  gap: 14px;
 }
 
 .config-rail-item {
-  width: 100%;
-  min-height: 60px;
+  width: 96px;
+  height: 54px;
   border-radius: var(--radius-sm);
-  border: 0.3px solid var(--blue-light);
+  border: 0.5px solid #6e7a93;
   background: transparent;
-  color: var(--blue-light);
+  color: #f4f7ff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
+  padding: 4px 6px;
   font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
   cursor: pointer;
 }
 
 .config-rail-item .icon {
-  color: #98abc7;
+  color: #f4f7ff;
+}
+
+.config-rail-item .icon svg {
+  stroke-width: 1.6;
 }
 
 .config-rail-item.active {
-  background: var(--violet-dark);
+  background: #2d135a;
+  border-color: #2d135a;
 }
 
 .config-rail-item.active .icon {
