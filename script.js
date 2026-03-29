@@ -410,15 +410,41 @@
     `;
   }
 
-  function radialMetricCard({ title, value, unit }) {
+  function radialMetricCard({
+    title,
+    value,
+    unit,
+    tailTopTop,
+    tailTopRight,
+    tailTopX,
+    tailBottomTop,
+    tailBottomRight,
+    tailBottomX,
+  }) {
+    const meterVarStyle = [
+      ["--tail-top-top", tailTopTop],
+      ["--tail-top-right", tailTopRight],
+      ["--tail-top-x", tailTopX],
+      ["--tail-bottom-top", tailBottomTop],
+      ["--tail-bottom-right", tailBottomRight],
+      ["--tail-bottom-x", tailBottomX],
+    ]
+      .filter(([, value]) => value !== undefined && value !== null)
+      .map(([name, value]) => `${name}: ${typeof value === "number" ? `${value}px` : value};`)
+      .join(" ");
+
+    const meterStyleAttr = meterVarStyle ? ` style="${meterVarStyle}"` : "";
+
     return `
       <article class="radial-metric-card">
         <h3>${title}</h3>
 
-        <div class="radial-meter-wrap">
-          <div class="radial-meter" aria-hidden="true">
-            <div class="radial-meter-hole"></div>
-          </div>
+        <div class="radial-meter-wrap"${meterStyleAttr}>
+          <svg class="radial-meter" viewBox="0 0 160 96" aria-hidden="true">
+            <path class="radial-meter-arc" d="M21 84 A59 59 0 0 1 118 34"></path>
+          </svg>
+          <span class="radial-meter-tail radial-meter-tail-top" aria-hidden="true"></span>
+          <span class="radial-meter-tail radial-meter-tail-bottom" aria-hidden="true"></span>
 
           <div class="radial-value">
             <span class="metric-chip">${unit}</span>
@@ -610,8 +636,16 @@
             </section>
 
             <section class="radial-grid">
-              ${radialMetricCard({ title: "Cost", value: "$0.15", unit: "Min" })}
-              ${radialMetricCard({ title: "Latency", value: "1050", unit: "ms" })}
+              ${radialMetricCard({
+                title: "Cost",
+                value: "$0.15",
+                unit: "Min",
+              })}
+              ${radialMetricCard({
+                title: "Latency",
+                value: "1050",
+                unit: "ms",
+              })}
             </section>
 
             <section class="config-panel">

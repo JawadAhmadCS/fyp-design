@@ -724,86 +724,123 @@ a {
 
 .radial-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(280px, 362px));
-  gap: 44px;
+  grid-template-columns: repeat(2, 176px);
+  justify-content: start;
+  gap: 16px;
   margin-bottom: 28px;
 }
 
 .radial-metric-card {
-  height: 255px;
-  border-radius: 24px;
-  background: var(--surface-gradient);
-  box-shadow: 3px 9px 23px 3px rgba(12, 10, 11, 0.8);
-  padding: 25px;
+  width: 176px;
+  height: 123px;
+  border-radius: 14px;
+  background:
+    radial-gradient(120% 120% at 8% -10%, rgba(27, 51, 95, 0.4), transparent 42%),
+    radial-gradient(circle at 90% 100%, rgba(111, 124, 161, 0.48), transparent 30%),
+    linear-gradient(152deg, #0d1730 0%, #0b1226 60%, #0f1934 100%);
+  border: 1px solid rgba(35, 49, 82, 0.58);
+  box-shadow: 0 8px 20px rgba(5, 9, 21, 0.36);
+  padding: 14px 16px 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 24px;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 6px;
 }
 
 .radial-metric-card h3 {
   margin: 0;
-  font-size: 21.8px;
-  line-height: 28px;
-  color: var(--blue-light);
-  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: rgba(231, 232, 234, 0.9);
+  font-weight: 400;
 }
 
 .radial-meter-wrap {
+  --tail-top-top: 28px;
+  --tail-top-right: 25px;
+  --tail-top-x: 0px;
+  --tail-bottom-top: 47px;
+  --tail-bottom-right: 21px;
+  --tail-bottom-x: 0px;
   position: relative;
-  width: 200px;
-  height: 112px;
-  display: grid;
-  place-items: center;
+  width: 132px;
+  height: 80px;
+  margin: 4px auto 0;
 }
 
 .radial-meter {
-  width: 198px;
-  height: 198px;
-  border-radius: 50%;
-  background: conic-gradient(from 180deg, #632ebe 0deg, #ebe1fc 130deg, #d6c2f9 180deg, transparent 180deg);
   position: absolute;
-  top: -92px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
-.radial-meter-hole {
+.radial-meter-arc {
+  fill: none;
+  stroke-width: 11;
+  stroke-linecap: round;
+}
+
+.radial-meter-arc {
+  stroke: #7432dc;
+}
+
+.radial-meter-tail {
   position: absolute;
-  width: 130px;
-  height: 130px;
-  background: var(--blue-base);
-  border-radius: 50%;
-  top: 34px;
-  left: 34px;
+  width: 9px;
+  height: 17px;
+  border-radius: 999px;
+  background: #d8ccfb;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.radial-meter-tail-top {
+  top: var(--tail-top-top);
+  right: var(--tail-top-right);
+  transform: translateX(var(--tail-top-x)) rotate(-24deg);
+}
+
+.radial-meter-tail-bottom {
+  top: var(--tail-bottom-top);
+  right: var(--tail-bottom-right);
+  transform: translateX(var(--tail-bottom-x));
 }
 
 .radial-value {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 3px;
+  width: 100%;
+  max-width: 74px;
+  padding-top: 0;
 }
 
 .metric-chip {
-  border-radius: 36px;
-  background: var(--violet-base);
-  color: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  background: #7432dc;
+  color: rgba(255, 255, 255, 0.84);
   font-family: "Hanken Grotesk", sans-serif;
-  font-size: 6.5px;
-  line-height: 8px;
-  padding: 2px 10px;
+  font-size: 5px;
+  line-height: 1;
+  padding: 2px 7px;
   text-transform: uppercase;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.32px;
 }
 
 .radial-value strong {
-  margin-top: 2px;
-  color: rgba(255, 255, 255, 0.8);
-  font-family: "Nunito", sans-serif;
-  font-size: 40px;
-  line-height: 48px;
-  font-weight: 600;
+  margin-top: 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-family: "Urbanist", sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
 }
 
 .config-panel {
@@ -1051,7 +1088,8 @@ a {
   }
 
   .radial-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(176px, 176px));
+    justify-content: start;
   }
 }
 
