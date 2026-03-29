@@ -68,44 +68,6 @@ a {
 }
 
 
-.screen-switcher {
-  position: fixed;
-  left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px;
-  background: rgba(11, 17, 32, 0.88);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(231, 232, 234, 0.22);
-  border-radius: var(--radius-pill);
-  z-index: 1000;
-}
-
-.screen-switcher button {
-  border: 1px solid transparent;
-  border-radius: var(--radius-pill);
-  background: transparent;
-  color: rgba(231, 232, 234, 0.72);
-  padding: 7px 12px;
-  cursor: pointer;
-  font-size: 12px;
-  transition: 180ms ease;
-}
-
-.screen-switcher button:hover {
-  color: #fff;
-  border-color: rgba(231, 232, 234, 0.25);
-}
-
-.screen-switcher button.active {
-  color: #fff;
-  border-color: rgba(231, 232, 234, 0.4);
-  background: rgba(43, 20, 83, 0.5);
-}
-
 .ui-btn {
   border: 0;
   background: transparent;
@@ -1231,14 +1193,6 @@ a {
 }
 
 @media (max-width: 760px) {
-  .screen-switcher {
-    left: 16px;
-    right: 16px;
-    transform: none;
-    overflow-x: auto;
-    justify-content: flex-start;
-  }
-
   .dashboard-main,
   .assistant-main,
   .phone-main {

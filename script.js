@@ -1,16 +1,12 @@
 (() => {
   const app = document.getElementById("app");
 
-  const screenOptions = [
-    { key: "landing", label: "Homepage" },
-    { key: "dashboard", label: "Dashboard" },
-    { key: "model", label: "Model" },
-    { key: "voice", label: "Voice" },
-    { key: "transcriber", label: "Transcriber" },
-    { key: "phoneNumbers", label: "Phone Numbers" },
-  ];
-
-  const validScreens = new Set(screenOptions.map((option) => option.key));
+  const screenKeys = ["landing", "dashboard", "model", "voice", "transcriber", "phoneNumbers"];
+  const validScreens = new Set(screenKeys);
+  const entryScreen = getEntryScreen();
+  if (!entryScreen) {
+    return;
+  }
 
   const modeCopy = {
     model: {
@@ -235,12 +231,47 @@
     `,
   };
 
-  let activeScreen = getInitialScreen();
+  let activeScreen = getInitialScreen(entryScreen);
   let isSidebarOpen = false;
 
-  function getInitialScreen() {
+  function getEntryScreen() {
+    if (redirectHashEntryRoute()) {
+      return "";
+    }
+
+    const pageScreen = document.body.getAttribute("data-screen");
+    if (pageScreen && validScreens.has(pageScreen)) {
+      return pageScreen;
+    }
+    return "dashboard";
+  }
+
+  function redirectHashEntryRoute() {
     const hash = window.location.hash.replace("#", "");
-    return validScreens.has(hash) ? hash : "dashboard";
+    if (!hash) {
+      return false;
+    }
+
+    const currentFile = window.location.pathname.split("/").pop() || "index.html";
+    if (hash === "landing" && currentFile !== "index.html") {
+      window.location.replace("./index.html");
+      return true;
+    }
+
+    if (hash === "dashboard" && currentFile !== "dashboard.html") {
+      window.location.replace("./dashboard.html");
+      return true;
+    }
+
+    return false;
+  }
+
+  function getInitialScreen(defaultScreen) {
+    const hash = window.location.hash.replace("#", "");
+    if (validScreens.has(hash) && hash !== "landing" && hash !== "dashboard") {
+      return hash;
+    }
+    return defaultScreen;
   }
 
   function icon(name, size = "medium") {
@@ -515,7 +546,7 @@
           <a href="#">Pages</a>
           <a href="#">Contact us</a>
         </nav>
-        ${uiButton({ variant: "landingHeader", label: "Get Started" })}
+        ${uiButton({ variant: "landingHeader", className: "js-open-dashboard", label: "Get Started" })}
       </header>
     `;
   }
@@ -540,7 +571,7 @@
             </p>
 
             <div class="hero-actions">
-              ${uiButton({ variant: "landingPrimary", label: "Try Free Now" })}
+              ${uiButton({ variant: "landingPrimary", className: "js-open-dashboard", label: "Try Free Now" })}
               ${uiButton({ variant: "landingSecondary", label: "Learn More" })}
             </div>
 
@@ -778,28 +809,6 @@
     `;
   }
 
-  function screenSwitcher() {
-    return `
-      <div class="screen-switcher" role="tablist" aria-label="Design views">
-        ${screenOptions
-          .map(
-            (option) => `
-              <button
-                type="button"
-                class="js-switch-screen${option.key === activeScreen ? " active" : ""}"
-                data-screen="${option.key}"
-                role="tab"
-                aria-selected="${option.key === activeScreen ? "true" : "false"}"
-              >
-                ${option.label}
-              </button>
-            `,
-          )
-          .join("")}
-      </div>
-    `;
-  }
-
   function renderScreen() {
     switch (activeScreen) {
       case "landing":
@@ -842,6 +851,13 @@
   }
 
   function bindEvents() {
+    const dashboardLinks = app.querySelectorAll(".js-open-dashboard");
+    dashboardLinks.forEach((button) => {
+      button.addEventListener("click", () => {
+        window.location.href = "./dashboard.html";
+      });
+    });
+
     const sidebarToggles = app.querySelectorAll(".js-toggle-sidebar");
     sidebarToggles.forEach((toggle) => {
       toggle.addEventListener("click", () => {
@@ -861,7 +877,6 @@
           return;
         }
         activeScreen = next;
-        window.location.hash = next;
         render();
       });
     });
@@ -896,18 +911,10 @@
   }
 
   function render() {
-    app.innerHTML = `${renderScreen()}${screenSwitcher()}`;
+    app.innerHTML = renderScreen();
     bindEvents();
     syncConfigSectionFromScreen();
   }
-
-  window.addEventListener("hashchange", () => {
-    const next = getInitialScreen();
-    if (next !== activeScreen) {
-      activeScreen = next;
-      render();
-    }
-  });
 
   render();
 })();
