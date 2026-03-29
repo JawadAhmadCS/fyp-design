@@ -11,7 +11,6 @@
   --blue-line: #404249;
   --blue-border: #656565;
   --blue-light: #e7e8ea;
-  --blue-accent: #0177fb;
 
   --violet-dark: #2b1453;
   --violet-base: #7c3aed;
@@ -44,7 +43,7 @@
 
 html,
 body,
-#root {
+#app {
   margin: 0;
   min-height: 100%;
   width: 100%;
@@ -678,53 +677,6 @@ a {
   line-height: 17px;
 }
 
-.config-rail {
-  background: #081126;
-  border-right: 0.5px solid #707070;
-  padding: 73px 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  min-width: 0;
-}
-
-.config-rail-item {
-  width: 96px;
-  height: 54px;
-  border-radius: var(--radius-sm);
-  border: 0.5px solid #6e7a93;
-  background: transparent;
-  color: #f4f7ff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 4px 6px;
-  font-size: 14px;
-  line-height: 17px;
-  font-weight: 400;
-  cursor: pointer;
-}
-
-.config-rail-item .icon {
-  color: #f4f7ff;
-}
-
-.config-rail-item .icon svg {
-  stroke-width: 1.6;
-}
-
-.config-rail-item.active {
-  background: #2d135a;
-  border-color: #2d135a;
-}
-
-.config-rail-item.active .icon {
-  color: #fff;
-}
-
 .assistant-main {
   padding: 18px 40px 72px 35px;
   min-width: 0;
@@ -1157,8 +1109,7 @@ a {
   }
 
   .primary-sidebar,
-  .assistant-list-sidebar,
-  .config-rail {
+  .assistant-list-sidebar {
     width: 100%;
     border-right: 0;
     border-bottom: 0.5px solid #707070;
@@ -1540,6 +1491,3 @@ a {
   --icon-size: 22px;
 }
 
-.hidden {
-  display: none !important;
-}

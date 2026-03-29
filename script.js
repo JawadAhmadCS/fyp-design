@@ -115,39 +115,6 @@
         <path d="M20 20l-4.2-4.2"></path>
       </svg>
     `,
-    model: `
-      <svg viewBox="0 0 24 24">
-        <path d="M12 3.1 18.8 7v9.9L12 20.9 5.2 16.9V7z"></path>
-        <path d="M12 7.2 15.6 9.3v5.4L12 16.8 8.4 14.7V9.3z"></path>
-        <path d="M12 3.1v4.1M5.2 7l3.2 2.3M18.8 7l-3.2 2.3M12 20.9v-4.1M5.2 16.9l3.2-2.2M18.8 16.9l-3.2-2.2"></path>
-        <circle cx="12" cy="2.6" r="0.8"></circle>
-        <circle cx="4.7" cy="6.8" r="0.8"></circle>
-        <circle cx="19.3" cy="6.8" r="0.8"></circle>
-        <circle cx="12" cy="21.4" r="0.8"></circle>
-        <circle cx="4.7" cy="17.2" r="0.8"></circle>
-        <circle cx="19.3" cy="17.2" r="0.8"></circle>
-      </svg>
-    `,
-    voice: `
-      <svg viewBox="0 0 24 24">
-        <path d="M6.2 6.3a4.6 4.6 0 0 1 4.6 4.6v1.6a4.8 4.8 0 0 1-3.8 4.7"></path>
-        <path d="M7.7 9.2a2.1 2.1 0 0 1 1.7 2.1"></path>
-        <path d="M7 17.2h3.7"></path>
-        <path d="M13.4 13.1V11"></path>
-        <path d="M15.5 14v-4.2"></path>
-        <path d="M17.6 13.1V11"></path>
-        <path d="M19.7 12.3h1.3"></path>
-      </svg>
-    `,
-    transcriber: `
-      <svg viewBox="0 0 24 24">
-        <rect x="9.1" y="4.1" width="5.8" height="8.6" rx="2.9"></rect>
-        <path d="M7.4 10.9v1.2a4.6 4.6 0 0 0 9.2 0v-1.2"></path>
-        <path d="M12 16.7v2.8"></path>
-        <path d="M9.2 19.5h5.6"></path>
-        <path d="M10.3 7.3h3.4M10.3 9.5h3.4"></path>
-      </svg>
-    `,
     calls: `
       <svg viewBox="0 0 24 24">
         <path d="M6.2 3.8l2.1-.5a1.5 1.5 0 0 1 1.7.8l1.3 2.6a1.5 1.5 0 0 1-.3 1.8l-1.2 1.2a14.8 14.8 0 0 0 4.5 4.5l1.2-1.2a1.5 1.5 0 0 1 1.8-.3l2.6 1.3a1.5 1.5 0 0 1 .8 1.7l-.5 2.1a2 2 0 0 1-2 1.5A16.5 16.5 0 0 1 4.7 5.8a2 2 0 0 1 1.5-2z"></path>
@@ -402,35 +369,6 @@
             <span>Deepgram.openai.vapi</span>
           </button>
         </div>
-      </aside>
-    `;
-  }
-
-  function configRail(active) {
-    const items = [
-      { key: "model", label: "Model", iconName: "model", target: "model" },
-      { key: "voice", label: "Voice", iconName: "voice", target: "voice" },
-      { key: "transcriber", label: "Trancriber", iconName: "transcriber", target: "transcriber" },
-    ];
-
-    return `
-      <aside class="config-rail" aria-label="Assistant sections">
-        ${items
-          .map((item) => {
-            const isActive = item.key === active;
-            return `
-              <button
-                type="button"
-                class="ui-btn ui-btn--configRail config-rail-item${isActive ? " active" : ""} js-switch-screen"
-                data-screen="${item.target}"
-                aria-current="${isActive ? "step" : "false"}"
-              >
-                ${icon(item.iconName, "medium")}
-                <span>${item.label}</span>
-              </button>
-            `;
-          })
-          .join("")}
       </aside>
     `;
   }
