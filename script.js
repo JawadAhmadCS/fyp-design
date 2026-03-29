@@ -373,8 +373,6 @@
             : `<div class="sidebar-welcome"><h1>Welcome, Naya</h1><p>Here&apos;s your Agent overview</p></div>`
         }
 
-        <div class="sidebar-divider"></div>
-
         <nav class="sidebar-nav" aria-label="Primary">
           ${navItems}
         </nav>
@@ -715,7 +713,7 @@
         ${floatingPrimaryToggle()}
 
         <div class="assistant-layout">
-          ${primarySidebar("assistants", true)}
+          ${primarySidebar("assistants")}
           ${assistantListSidebar()}
 
           <main class="assistant-main">
