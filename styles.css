@@ -727,14 +727,15 @@ a {
 
 .radial-grid {
   display: grid;
-  grid-template-columns: repeat(2, 318px);
-  justify-content: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-content: stretch;
+  width: 100%;
   gap: 16px;
-  margin-bottom: 28px;
+  margin: 0 0 28px;
 }
 
 .radial-metric-card {
-  width: 318px;
+  width: 100%;
   height: 219px;
   border-radius: 21px;
   background:
@@ -1105,8 +1106,8 @@ a {
   }
 
   .radial-grid {
-    grid-template-columns: repeat(auto-fit, minmax(318px, 318px));
-    justify-content: start;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-content: stretch;
   }
 }
 
