@@ -1,4 +1,4 @@
-﻿import { Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { RadialMetricCard } from "../components/cards/RadialMetricCard";
 import { SelectField } from "../components/forms/SelectField";
 import { TextField } from "../components/forms/TextField";
@@ -6,6 +6,7 @@ import { DashboardTopBar } from "../components/layout/DashboardTopBar";
 import { AssistantListSidebar } from "../components/nav/AssistantListSidebar";
 import { ConfigRail } from "../components/nav/ConfigRail";
 import { PrimarySidebar } from "../components/nav/PrimarySidebar";
+import { Button } from "../components/ui/Button";
 
 type AssistantMode = "model" | "voice" | "transcriber";
 
@@ -79,14 +80,22 @@ export function AssistantConfigPage({ mode }: AssistantConfigPageProps) {
               <span>e845f7b3-80ca-4db5-bb6c-ba</span>
             </div>
             <div className="assistant-pills">
-              <button type="button">Integration</button>
-              <button type="button">Test</button>
-              <button type="button">Chat</button>
-              <button type="button">Talk to Assistant</button>
+              <Button variant="assistantChip" type="button">
+                Integration
+              </Button>
+              <Button variant="assistantChip" type="button">
+                Test
+              </Button>
+              <Button variant="assistantChip" type="button">
+                Chat
+              </Button>
+              <Button variant="assistantChip" type="button">
+                Talk to Assistant
+              </Button>
             </div>
-            <button type="button" className="publish-btn">
+            <Button variant="publish" type="button">
               Publish
-            </button>
+            </Button>
           </section>
 
           <section className="radial-grid">
@@ -117,10 +126,9 @@ export function AssistantConfigPage({ mode }: AssistantConfigPageProps) {
               <div className="config-fields single-col">
                 <div className="system-heading">
                   <h3>{copy.systemTitle}</h3>
-                  <button type="button" className="optimize-btn">
-                    <Sparkles size={14} />
+                  <Button variant="optimize" type="button" startIcon={<Sparkles size={14} />}>
                     Optimize
-                  </button>
+                  </Button>
                 </div>
                 <TextField label="" value={copy.systemValue} multiline />
               </div>

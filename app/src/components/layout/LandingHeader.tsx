@@ -1,4 +1,5 @@
-﻿import BrandWordmark from "../BrandWordmark";
+import BrandWordmark from "../BrandWordmark";
+import { Button } from "../ui/Button";
 
 export function LandingHeader() {
   return (
@@ -11,9 +12,9 @@ export function LandingHeader() {
         <a href="#">Pages</a>
         <a href="#">Contact us</a>
       </nav>
-      <button type="button" className="landing-cta">
+      <Button variant="landingHeader" type="button">
         Get Started
-      </button>
+      </Button>
     </header>
   );
 }

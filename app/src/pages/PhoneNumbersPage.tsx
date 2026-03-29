@@ -1,6 +1,7 @@
-﻿import { ToggleRow } from "../components/forms/ToggleRow";
+import { ToggleRow } from "../components/forms/ToggleRow";
 import { DashboardTopBar } from "../components/layout/DashboardTopBar";
 import { PrimarySidebar } from "../components/nav/PrimarySidebar";
+import { Button } from "../components/ui/Button";
 
 export function PhoneNumbersPage() {
   return (
@@ -41,12 +42,12 @@ export function PhoneNumbersPage() {
           </section>
 
           <div className="phone-actions">
-            <button type="button" className="import-btn">
+            <Button variant="import" type="button">
               Import
-            </button>
-            <button type="button" className="cancel-btn">
+            </Button>
+            <Button variant="cancel" type="button">
               Cancel
-            </button>
+            </Button>
           </div>
         </main>
       </div>

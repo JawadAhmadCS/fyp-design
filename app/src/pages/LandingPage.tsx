@@ -1,5 +1,6 @@
-﻿import { Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { LandingHeader } from "../components/layout/LandingHeader";
+import { Button } from "../components/ui/Button";
 
 export function LandingPage() {
   return (
@@ -24,12 +25,12 @@ export function LandingPage() {
           </p>
 
           <div className="hero-actions">
-            <button type="button" className="primary-pill">
+            <Button variant="landingPrimary" type="button">
               Try Free Now
-            </button>
-            <button type="button" className="ghost-pill">
+            </Button>
+            <Button variant="landingSecondary" type="button">
               Learn More
-            </button>
+            </Button>
           </div>
 
           <div className="hero-social-proof">

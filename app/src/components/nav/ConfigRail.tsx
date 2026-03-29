@@ -1,4 +1,5 @@
-﻿import { AudioLines, BrainCircuit, Captions } from "lucide-react";
+import { AudioLines, BrainCircuit, Captions } from "lucide-react";
+import { Button } from "../ui/Button";
 
 type RailMode = "model" | "voice" | "transcriber";
 
@@ -20,15 +21,16 @@ export function ConfigRail({ active }: ConfigRailProps) {
         const isActive = item.key === active;
 
         return (
-          <button
+          <Button
             key={item.key}
+            variant="configRail"
             type="button"
             className={isActive ? "config-rail-item active" : "config-rail-item"}
             aria-current={isActive ? "step" : undefined}
           >
             <Icon size={18} />
             <span>{item.label}</span>
-          </button>
+          </Button>
         );
       })}
     </aside>

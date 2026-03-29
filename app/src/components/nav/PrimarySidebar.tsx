@@ -1,4 +1,5 @@
-﻿import { BarChart3, PhoneCall, UsersRound } from "lucide-react";
+import { BarChart3, PhoneCall, UsersRound } from "lucide-react";
+import { Button } from "../ui/Button";
 
 type PrimarySidebarItem = "dashboard" | "assistants" | "phone";
 
@@ -31,15 +32,16 @@ export function PrimarySidebar({ active, compact = false }: PrimarySidebarProps)
           const isActive = active === item.key;
 
           return (
-            <button
+            <Button
               key={item.key}
+              variant="sidebarItem"
               type="button"
               className={isActive ? "sidebar-item active" : "sidebar-item"}
               aria-current={isActive ? "page" : undefined}
             >
               <Icon size={20} />
               {!compact && <span>{item.label}</span>}
-            </button>
+            </Button>
           );
         })}
       </nav>

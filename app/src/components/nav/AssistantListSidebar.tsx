@@ -1,16 +1,16 @@
-﻿import { FilePlus2, Plus, Search } from "lucide-react";
+import { FilePlus2, Plus, Search } from "lucide-react";
+import { Button } from "../ui/Button";
 
 export function AssistantListSidebar() {
   return (
     <aside className="assistant-list-sidebar">
       <div className="assistant-list-actions">
-        <button type="button" className="light-action wide">
-          <span>Create Assistant</span>
-          <Plus size={18} />
-        </button>
-        <button type="button" className="light-action icon-only" aria-label="Upload template">
+        <Button variant="sidebarSoft" type="button" endIcon={<Plus size={18} />}>
+          Create Assistant
+        </Button>
+        <Button variant="sidebarSoftIcon" type="button" aria-label="Upload template">
           <FilePlus2 size={18} />
-        </button>
+        </Button>
       </div>
 
       <button type="button" className="assistant-search">

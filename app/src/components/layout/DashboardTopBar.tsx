@@ -1,5 +1,6 @@
-﻿import { Bell, Mic, Settings } from "lucide-react";
+import { Bell, Mic, Settings } from "lucide-react";
 import BrandWordmark from "../BrandWordmark";
+import { Button } from "../ui/Button";
 
 export function DashboardTopBar() {
   return (
@@ -12,12 +13,12 @@ export function DashboardTopBar() {
       </div>
 
       <div className="topbar-right">
-        <button className="icon-bubble" type="button" aria-label="Notifications">
+        <Button variant="iconBubble" type="button" aria-label="Notifications">
           <Bell size={16} />
-        </button>
-        <button className="icon-bubble" type="button" aria-label="Settings">
+        </Button>
+        <Button variant="iconBubble" type="button" aria-label="Settings">
           <Settings size={16} />
-        </button>
+        </Button>
         <div className="profile-pill" role="button" tabIndex={0}>
           <span className="avatar-circle">NR</span>
           <div>

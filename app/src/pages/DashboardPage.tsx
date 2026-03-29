@@ -1,7 +1,8 @@
-﻿import { BarChart3, CircleDollarSign, Clock3, PhoneCall, TrendingUp } from "lucide-react";
+import { BarChart3, CircleDollarSign, Clock3, PhoneCall, TrendingUp } from "lucide-react";
 import { SummaryCard } from "../components/cards/SummaryCard";
 import { DashboardTopBar } from "../components/layout/DashboardTopBar";
 import { PrimarySidebar } from "../components/nav/PrimarySidebar";
+import { Button } from "../components/ui/Button";
 
 export function DashboardPage() {
   return (
@@ -15,8 +16,12 @@ export function DashboardPage() {
           <section className="metrics-header">
             <h2>Metrics</h2>
             <div className="metrics-filters">
-              <button type="button">All Assistants</button>
-              <button type="button">Last Month</button>
+              <Button variant="dashboardFilter" className="dashboard-filter wide" type="button">
+                All Assistants
+              </Button>
+              <Button variant="dashboardFilter" className="dashboard-filter" type="button">
+                Last Month
+              </Button>
             </div>
           </section>
 
